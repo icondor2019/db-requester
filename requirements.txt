@@ -1,0 +1,7 @@
+pydantic==2.7.3
+SQLAlchemy==2.0.30
+loguru==0.7.2
+fastapi==0.115.3
+python-dotenv==1.0.1
+pydantic-settings==2.6.0
+PyMySQL==1.1.1
