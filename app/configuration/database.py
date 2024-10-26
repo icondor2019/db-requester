@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
-from configuration.settings import settings
+from app.configuration.settings import settings
 # import pymysql
 
 DB_USER = settings.SINGLE_STORE_USER

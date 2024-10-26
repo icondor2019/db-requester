@@ -29,6 +29,10 @@ class Settings(BaseSettings):
     TELEGRAM_BOT_TOKEN: str = os.getenv("TELEGRAM_BOT_TOKEN")
     TELEGRAM_BOT_USER: str = os.getenv("TELEGRAM_BOT_USER")
 
+    # FastAPI docs
+    OPEN_API_PATH: str = "/swagger-ui"
+    OPEN_API_JSON: str = "/openapi.json"
+
     class Config():
         case_sensitive = True
 

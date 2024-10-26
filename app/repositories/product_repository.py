@@ -1,12 +1,13 @@
 from loguru import logger
 from sqlalchemy import text
-from configuration.database import db
+from app.configuration.database import db
 from sqlalchemy.exc import SQLAlchemyError
-from responses.product_response import ProductResponse
-from repositories.queries.product_query import (
+from app.responses.product_response import ProductResponse
+from app.repositories.queries.product_query import (
     CREATE_SELLER_PRODUCT_QUERY,
     DEACTIVATE_SELLER_PRODUCTS_QUERY,
-    GET_ALL_SELLER_ACTIVE_PRODUCTS_QUERY
+    GET_ALL_SELLER_ACTIVE_PRODUCTS_QUERY,
+    GET_MARKET_SUMMARY_QUERY
 )
 
 
@@ -36,13 +37,22 @@ class ProductRepository:
         return result
     
     def get_all_active_seller_products(self, seller_uuid):
-        result = None
+        result = 'error'
         try:
             params = {'seller_uuid': seller_uuid}
             result = db.execute(text(GET_ALL_SELLER_ACTIVE_PRODUCTS_QUERY), params).fetchall()
-            logger.debug(result)
             db.commit()
         except SQLAlchemyError as ex:
             db.rollback()
             logger.error(f"Error getting active products. seller_uuid: {seller_uuid}. Error: {ex}")
+        return result
+    
+    def get_market_summary(self):
+        result='error'
+        try:
+            result = db.execute(text(GET_MARKET_SUMMARY_QUERY)).fetchall()
+            db.commit()
+        except SQLAlchemyError as ex:
+            db.rollback()
+            logger.error(f"Error getting market_summary. Error: {ex}")
         return result
